@@ -14,7 +14,7 @@ def generate_launch_description():
     
     social_navigation_dir = get_package_share_directory('social_navigation_py')    
     social_navigation_config_dir = os.path.join( get_package_share_directory('social_navigation'), 'configs')
-    config_file = os.path.join(social_navigation_config_dir, 'case_config_6.yaml')
+    config_file = os.path.join(social_navigation_config_dir, 'case_config_6.yaml') 
     print(f"Config file: {config_file}")
     
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -27,7 +27,12 @@ def generate_launch_description():
         config = yaml.safe_load(file)
     print(f"Config: {config}")
     
+
+
     agent_names = list(config["agents"].keys())
+
+    # it seems we create a dictionary of other agents for each agent
+    # which means all agents should be aware of each other
     print(f"Agent names: {agent_names}")
     if len(agent_names) > 1:
         other_agents = {agent_names[i]: agent_names[:i] + agent_names[i+1:] for i in range(len(agent_names))} # Make sure this can work for one agent

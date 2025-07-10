@@ -31,7 +31,9 @@ class RobotController(Node):
         self.declare_parameter('robot_list', rclpy.Parameter.Type.STRING_ARRAY)
         robot_name_param, robot_list_param = self.get_parameter('robot_name'), self.get_parameter('robot_list')
         self.name, self.other_robots = robot_name_param.value, robot_list_param.value
-        self.get_logger().info(f"Other robots: {self.other_robots}")
+
+        # here we get a list of all other robots
+        self.get_logger().info(f"Other robots: {self.other_robots}") 
 
         # Define topic prefix
         if self.name != "":

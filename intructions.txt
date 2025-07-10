@@ -1,0 +1,17 @@
+xhost +
+
+docker exec -it docker-ros-ubuntu-1 bash
+
+cd /home/colcon_ws
+colcon build --symlink-install
+
+source install/local_setup.bash
+
+
+rgazebo input_file:=/home/colcon_ws/src/social_navigation/social_navigation_py/social_navigation_py/robot_setup_6.json
+rnav2
+rsfm
+ros2 launch aws_robomaker_hospital_world main.launch.py input_file:=/home/colcon_ws/src/social_navigation/social_navigation_py/social_navigation_py/robot_setup_1.json
+rcplan --ros-args -p "robots:=["robot1", "robot2"]"
+rqueues
+rcdis -p input_file:=/home/colcon_ws/src/social_navigation/social_navigation_py/social_navigation_py/robot_setup_6.json

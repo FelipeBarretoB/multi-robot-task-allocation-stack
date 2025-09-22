@@ -9,6 +9,17 @@ RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
 RUN python3 -m pip install numpy
 RUN apt-get install -y python3.10-dev
 
+RUN apt-get update && apt-get install -y curl gnupg2 lsb-release
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | apt-key add -
+RUN echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list
+
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
+RUN rm /etc/apt/sources.list.d/ros2.list
+RUN apt-get update
+
+RUN apt-get install -y --fix-missing ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-turtlebot3*
+
 RUN apt-get install -y ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-turtlebot3*
 RUN apt-get install -y ros-humble-nav2-simple-commander
 RUN pip3 install -U setuptools
@@ -83,3 +94,4 @@ RUN echo "alias rcdis='ros2 run social_navigation_py dispatcher --ros-args -p us
 RUN echo "alias rctimecollect='ros2 run social_navigation_py goal_setter_for_travel_time --ros-args -p use_sim_time:=True'" >> ~/.bashrc
 RUN echo "alias rcplan='ros2 run social_navigation_py planner_wrapper --ros-args -p use_sim_time:=True'" >> ~/.bashrc
 RUN echo "alias rqueues='ros2 run social_navigation_py room_queue'" >> ~/.bashrc
+

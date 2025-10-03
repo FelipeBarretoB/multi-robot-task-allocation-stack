@@ -26,9 +26,9 @@ from the SMrTa folder.
 
 Then to build the environment, run
 ```
-docker compose --profile <service> build
-docker compose --profile <service> up -d
-docker exec -it docker-ros-<service>-1 bash
+docker compose --profile ubuntu build
+docker compose --profile ubuntu up -d
+docker exec -it docker-ros-ubuntu-1 bash
 ```
 from the highest level of the repository where `<service>` is `ubuntu` or `wsl` depending on your operating system.
 
